@@ -1,0 +1,25 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= @article.banner_url %>'), url('https://source.unsplash.com/1200x700/?article');">
+  <div class="container">
+    <h1><%= @article.name %></h1>
+  </div>
+</div>
+
+<div class="pt-30 container">
+  <div class="cards">
+    <% @article.commentaires.each do |commentaire| %>
+      <%= render "articles/commentaire_card", commentaire: commentaire %>
+    <% end %>
+  </div>
+  <div class="pt-30 row justify-content-center">
+    <div class="col-12 col-md-4">
+      <h4 class="text-center">Add a commentaire</h4>
+      <%= simple_form_for [ @article, @commentaire ] do |f| %>
+        <%= f.input :name, placeholder: "je suis d'accord" %>
+        <%= f.input :description, placeholder: "Liberez vous" %>
+        <div class="form-actions">
+          <%= f.submit "Add", class: "btn btn-flat" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
