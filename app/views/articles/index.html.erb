@@ -24,30 +24,12 @@
             <%= image_tag "circles.svg" %>
           </div>
         <% end %>
-        <p class="text-center fs-24">Commentaires</p>
-        <% @articles.each do |article| %>
-        <h2><%= article.name %></h2>
-        <% article.commentaires.each do |commentaire| %>
-          <%= link_to "View Commentaire", article_commentaire_path(article, commentaire) %>
-        <% end %>
-      <% end %>
-
-        <% @articles.each do |article| %>
-          <h2><%= article.name %></h2>
-            <% article.commentaires.each do |commentaire| %>
-          <#%= link_to article_commentaire_path(article) %>
-          <% end %>
-        <% end %>
       </div>
     </div>
   </div>
 
-  <div class="section">
-    <h2 class="text-center">Our Community Best Articles</h2>
-    <div class="cards">
-      <% @articles.each do |article| %>
-        <%= render "article_card", article: article %>
-      <% end %>
+
+
     </div>
   </div>
   <div class="section">

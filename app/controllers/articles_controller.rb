@@ -1,16 +1,25 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!
 
   def index
+
     @articles = Article.all
+    @articles = Article.first
     @commentaires = current_user.commentaires
   end
 
+
   def show
-    puts "params[:id] = #{params[:id]}" # Esto mostrará el valor de params[:id] en la consola.
     @article = Article.find_by_id(params[:id])
-    @commentaire = Commentaire.new
-    @commentaires = @article.commentaires if @article
+
+    if @article
+      @commentaire = Commentaire.new
+      @commentaires = @article.commentaires
+    else
+      # Maneja el caso en el que no se encuentra el artículo
+      flash[:error] = "El artículo no se encontró"
+      redirect_to root_path # O cualquier otra ruta adecuada
+    end
   end
 
   def new
