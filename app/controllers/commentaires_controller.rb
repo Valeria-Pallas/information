@@ -1,37 +1,44 @@
 class CommentairesController < ApplicationController
   def new
+    @article = Article.find(params[:article_id])
     @commentaire = Commentaire.new
   end
+
   def create
-    @article = Article.find(params[:garden_id])
+    @article = Article.find(params[:article_id])
     @commentaire = Commentaire.new(commentaire_params)
     @commentaire.article = @article
     if @commentaire.save
-      redirect_to article_path(@article)
+      redirect_to article_path(@article), notice: 'Comentario creado exitosamente.'
     else
-      render "gardens/show", status: :unprocessable_entity
+      render 'articles/show', status: :unprocessable_entity
     end
   end
 
-  def manage_activity
+  def edit
     @commentaire = Commentaire.find(params[:id])
   end
 
   def update
     @commentaire = Commentaire.find(params[:id])
     if @commentaire.update(commentaire_params)
-      redirect_to manage_activity_commentaire_path(@commentaire), notice: 'commentaire activity updated successfully.'
+      redirect_to article_path(@commentaire.article), notice: 'Comentario actualizado exitosamente.'
     else
-      render :manage_activity, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @commentaire = Commentaire.find(params[:id])
     @article = @commentaire.article
-    @commentaire.destroy
-    redirect_to article_path(@article), status: :see_other
+    if @commentaire.destroy
+      redirect_to article_path(@article), notice: 'Comentario eliminado exitosamente.'
+    else
+      redirect_to article_path(@article), alert: 'No se pudo eliminar el comentario.'
+    end
   end
+
+  # ...
 
   private
 

@@ -1,0 +1,6 @@
+<!-- commentaires/_form.html.erb -->
+<%= simple_form_for([@article, @commentaire]) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>

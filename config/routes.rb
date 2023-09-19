@@ -1,19 +1,20 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'articles#index' # Ruta raíz, puedes cambiarla según tus necesidades
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :articles do
+    resources :commentaires, only: [:index, :new, :show, :create, :destroy] # Esto define rutas anidadas para los comentarios dentro de los artículos
 
-  root to: "articles#index"
-
-  resources :articles, only: [:index, :show, :new, :create] do
-    resources :commentaires, only: [:create]
-  end
-  resources :commentaires, only: [:destroy]
-  resources :commentairess do
+    # Rutas estándar RESTful
+    collection do
+      get :new, action: :new, as: :new
+      post :create, action: :create, as: :create
+    end
     member do
-      get 'new'
+      get :show, action: :show, as: :show
+      get :edit, action: :edit, as: :edit
+      patch :update, action: :update, as: :update
+      delete :destroy, action: :destroy, as: :destroy
     end
   end
 

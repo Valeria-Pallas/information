@@ -1,13 +1,16 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+
   def index
     @articles = Article.all
-    @article = Article.first
+    @commentaires = current_user.commentaires
   end
 
   def show
-    @article = Article.find(params[:id])
-    @plant = Commentaire.new
-    @plants = @article.commentaires
+    puts "params[:id] = #{params[:id]}" # Esto mostrará el valor de params[:id] en la consola.
+    @article = Article.find_by_id(params[:id])
+    @commentaire = Commentaire.new
+    @commentaires = @article.commentaires if @article
   end
 
   def new
@@ -26,6 +29,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:name, :banner_url, :description)
+    params.require(:article).permit(:name, :banner_url, :description) # Agregar `:` antes de `description`
   end
 end

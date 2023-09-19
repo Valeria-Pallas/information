@@ -1,10 +1,7 @@
-%= simple_form_for(@commentaire, url: commentaire_path(@commentaire), method: :put) do |f| %>
+<%= simple_form_for(@commentaire, url: commentaire_path(@commentaire), method: :put) do |f| %>
 
   <%= f.input :name %>
   <%= f.input :description %>
-  <%= f.input :date, as: :date_picker %>
 
-
-  <!-- Botón para actualizar -->
   <%= f.button :submit, "Comment", class: "btn btn-flat" %>
 <% end %>

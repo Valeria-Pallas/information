@@ -1,18 +1,10 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(<%= image_path('home_banner.jpg') %>)">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(<%= image_path('home_banner.jpg') %>)">
   <div class="container">
     <h1>Information</h1>
     <p>A tout moment!</p>
-    <%#= link_to "Discover", render "article_card",article: article, class: "btn btn-flat" %>
-    <%= link_to article_path(@article), class: "btn btn-flat" do %>
-  Discover
-<% end %>
-
+    <%= link_to "View All Articles", articles_path, class: "btn btn-flat" %>
   </div>
 </div>
-<% @articles.each do |article| %>
-  <!-- Contenido del artículo aquí -->
-  <%= link_to "Discover", article_path(article), class: "btn btn-flat" %>
-<% end %>
 
 <div class="container">
   <div class="section">
@@ -32,23 +24,26 @@
             <%= image_tag "circles.svg" %>
           </div>
         <% end %>
-        <p class="text-center fs-24">Add your commentaires</p>
-      </div>
-      <div class="col-xs-12 col-md-6 col-lg-4">
-        <%= link_to new_article_path do %>
-          <div class="icon">
-            <%= image_tag "watering.svg" %>
-          </div>
+        <p class="text-center fs-24">Commentaires</p>
+        <% @articles.each do |article| %>
+        <h2><%= article.name %></h2>
+        <% article.commentaires.each do |commentaire| %>
+          <%= link_to "View Commentaire", article_commentaire_path(article, commentaire) %>
         <% end %>
-        <p class="text-center fs-24">Edit your commentaire</p>
-          <% @article.commentairess.each do |commentaire| %>
-        <%= link_to manage_activity_commentaire_path(commentaire) %>
+      <% end %>
+
+        <% @articles.each do |article| %>
+          <h2><%= article.name %></h2>
+            <% article.commentaires.each do |commentaire| %>
+          <#%= link_to article_commentaire_path(article) %>
+          <% end %>
         <% end %>
       </div>
     </div>
   </div>
+
   <div class="section">
-    <h2 class="text-center">Our Community Best articles</h2>
+    <h2 class="text-center">Our Community Best Articles</h2>
     <div class="cards">
       <% @articles.each do |article| %>
         <%= render "article_card", article: article %>

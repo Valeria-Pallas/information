@@ -1,0 +1,7 @@
+
+<div class="card-plant" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= commentaire.name %>')">
+  <%= commentaire.name %>
+  <%= commentaire.description %>
+  <%= link_to "+", article_commentaire_path(commentaire), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "card-remove-link" %>
+  <%= link_to "Volver", article_path(commentaire), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "card-remove-link" %>
+</div>

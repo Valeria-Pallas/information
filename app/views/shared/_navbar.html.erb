@@ -1,7 +1,26 @@
+
+</div>
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon container-fluid">
   <%= link_to root_path, class: "navbar-brand" do %>
     <div class="logo">
-      <%= image_tag "garden.svg" %>
+      <%= image_tag "https://cdn.pixabay.com/photo/2019/07/10/09/09/animal-world-4328243_1280.jpg" %>
     </div>
   <% end %>
+
+  <ul class="navbar-nav ml-auto">
+    <% if user_signed_in? %>
+      <!-- Si el usuario está autenticado, muestra un enlace para cerrar sesión -->
+      <li class="nav-item">
+        <%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "nav-link" %>
+      </li>
+    <% else %>
+      <!-- Si el usuario no está autenticado, muestra enlaces para iniciar sesión y registrarse -->
+      <li class="nav-item">
+        <%= link_to "Iniciar sesión", new_user_session_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Registrarse", new_user_registration_path, class: "nav-link" %>
+      </li>
+    <% end %>
+  </ul>
 </div>

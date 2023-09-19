@@ -1,4 +1,4 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= @article.banner_url %>'), url('https://source.unsplash.com/1200x700/?article');">
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= @article.banner_url %>')">
   <div class="container">
     <h1><%= @article.name %></h1>
   </div>
@@ -10,12 +10,14 @@
       <%= render "articles/commentaire_card", commentaire: commentaire %>
     <% end %>
   </div>
+
   <div class="pt-30 row justify-content-center">
     <div class="col-12 col-md-4">
       <h4 class="text-center">Add a commentaire</h4>
-      <%= simple_form_for [ @article, @commentaire ] do |f| %>
+        <%= simple_form_for [ @article, @commentaire ] do |f| %>
         <%= f.input :name, placeholder: "je suis d'accord" %>
         <%= f.input :description, placeholder: "Liberez vous" %>
+        <%= f.button :submit, "Add Commentaire" %>
         <div class="form-actions">
           <%= f.submit "Add", class: "btn btn-flat" %>
         </div>
@@ -23,3 +25,22 @@
     </div>
   </div>
 </div>
+
+<!-- articles/show.html.erb -->
+<h1><%= @article.name %></h1>
+<p><%= @article.description %></p>
+
+<h2>Comentarios</h2>
+<ul>
+  <% @article.commentaires.each do |commentaire| %>
+    <li>
+      <strong><%= commentaire.name %></strong>
+      <p><%= commentaire.description %></p>
+      <%= link_to 'Editar', edit_commentaire_path(commentaire) %>
+      <%= link_to 'Borrar', commentaire, method: :delete, data: { confirm: '¿Estás seguro?' } %>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Nuevo Comentario</h2>
+<%= render 'commentaires/form' %>
